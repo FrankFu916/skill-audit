@@ -112,8 +112,11 @@ function parseArgs(argv) {
 }
 
 function fail(msg) {
+  // stderr is unbuffered enough for short usage errors; throw to unwind so
+  // any pending stdout writes still flush before the process ends.
   console.error(`skill-audit: ${msg}`);
-  process.exit(2);
+  process.exitCode = 2;
+  throw { __usageError: true };
 }
 
 const VALID_FORMATS = new Set(['full', 'compact', 'json', 'sarif', 'markdown']);
@@ -216,8 +219,13 @@ function splitList(value) {
 }
 
 main()
-  .then((code) => process.exit(code))
+  .then((code) => {
+    // Set exitCode instead of calling process.exit(): exiting immediately
+    // truncates pending async writes to a piped stdout on some platforms.
+    process.exitCode = code;
+  })
   .catch((err) => {
+    if (err && err.__usageError) return; // fail() already reported it
     console.error(`skill-audit crashed: ${err?.stack || err}`);
-    process.exit(2);
+    process.exitCode = 2;
   });
