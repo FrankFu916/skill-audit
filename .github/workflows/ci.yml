@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [18, 20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+
+  self-audit:
+    # Eat our own dog food: audit the demo fixtures and fail on criticals.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Audit known-bad fixtures (expect exit 1 with criticals)
+        run: |
+          set +e
+          node bin/skill-audit.js test/fixtures/demo-skills -f compact --skip unbounded-script-exec | tee /tmp/audit.txt
+          code=$?
+          grep -q "CRITICAL" /tmp/audit.txt || { echo "detector failed to flag criticals"; exit 1; }
+          [ "$code" -eq 1 ] || { echo "expected exit 1 on criticals, got $code"; exit 1; }
+          exit 0
+      - name: Audit clean fixture (expect exit 0)
+        run: node bin/skill-audit.js test/fixtures/demo-skills/safe-pdf-tools -f compact
+
+  publish:
+    if: github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'release:')
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+      - run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

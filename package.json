@@ -1,0 +1,50 @@
+{
+  "name": "skill-audit",
+  "version": "0.1.0",
+  "description": "Security & quality audit for AI agent skills (Claude Code, Codex, Cursor...). Zero dependencies. Detects prompt injection, credential exfiltration, destructive commands and broken metadata in SKILL.md files.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "skill-audit": "bin/skill-audit.js"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./rules": "./src/rules.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "skills",
+    "claude-code",
+    "codex",
+    "cursor",
+    "security",
+    "audit",
+    "prompt-injection",
+    "supply-chain",
+    "lint",
+    "cli",
+    "sarif",
+    "static-analysis"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FrankFu916/skill-audit.git"
+  },
+  "homepage": "https://github.com/FrankFu916/skill-audit#readme",
+  "bugs": "https://github.com/FrankFu916/skill-audit/issues",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "demo": "node bin/skill-audit.js audit test/fixtures/demo-skills -f full"
+  }
+}
