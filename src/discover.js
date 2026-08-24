@@ -95,19 +95,23 @@ export function loadSkillFile(file, skillDir) {
     files: [],
     error: null,
   };
-  try {
-    const raw = readFileSync(file, 'utf8');
-    record.raw = raw;
-    const { raw: fmText, body } = splitFrontmatter(raw);
-    record.body = body;
-    record.bodyLines = body.split('\n');
-    if (fmText === null) {
-      record.parseWarnings.push('no YAML frontmatter block found (expected --- ... ---)');
-    } else {
-      const { data, warnings } = parseYaml(fmText);
-      record.frontmatter = data;
-      record.parseWarnings.push(...warnings.map((w) => `frontmatter: ${w}`));
-    }
+    try {
+      const raw = readFileSync(file, 'utf8');
+      record.raw = raw;
+      const { raw: fmText, body } = splitFrontmatter(raw);
+      record.body = body;
+      record.bodyLines = body.split('\n');
+      // Absolute-file-line offset of bodyLines[0]: opening '---', the
+      // frontmatter lines, and the closing '---' precede the body.
+      record.bodyOffset =
+        fmText === null ? 0 : 2 + fmText.split('\n').length;
+      if (fmText === null) {
+        record.parseWarnings.push('no YAML frontmatter block found (expected --- ... ---)');
+      } else {
+        const { data, warnings } = parseYaml(fmText);
+        record.frontmatter = data;
+        record.parseWarnings.push(...warnings.map((w) => `frontmatter: ${w}`));
+      }
     record.files = listFiles(skillDir);
   } catch (err) {
     record.error = err.message;
