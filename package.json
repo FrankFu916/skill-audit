@@ -44,7 +44,7 @@
   "homepage": "https://github.com/FrankFu916/skill-audit#readme",
   "bugs": "https://github.com/FrankFu916/skill-audit/issues",
   "scripts": {
-    "test": "node --test \"test/*.test.js\"",
+    "test": "node --test",
     "demo": "node bin/skill-audit.js audit test/fixtures/demo-skills -f full"
   }
 }
