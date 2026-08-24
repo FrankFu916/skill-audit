@@ -134,7 +134,7 @@ and matched text — nothing is a black box.
 
 | Rule | Severity |
 |---|---|
-| `destructive-commands` — `rm -rf` on broad paths, `mkfs`, `dd of=/dev/*`, fork bombs, force-push to main, `DROP TABLE/DATABASE`, power commands | critical |
+| `destructive-commands` — recursive `rm` over wildcards/`~`/`$HOME`/root, `mkfs`, `dd of=/dev/*`, fork bombs, force-push to main, `DROP TABLE/DATABASE`, power commands | critical |
 | `curl-pipe-shell` — piping downloads straight into a shell | warning |
 | `network-access` — outbound network calls from bundled scripts | warning |
 

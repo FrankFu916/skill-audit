@@ -26,3 +26,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `audit`, `RULES`, `discoverSkills`, `parseYaml`, renderers.
 - 34 tests (unit + end-to-end) and five demo fixtures including a realistic
   credential-stealing skill.
+
+### Fixed
+
+- Calibrated against the official [anthropics/skills](https://github.com/anthropics/skills)
+  corpus (19 real skills): `env-exfiltration` no longer fires on tool flags
+  like `-env:UserInstallation=` or bare URLs in XML; `destructive-commands`
+  only flags *recursive* deletes (`rm -r/-rf`) over wildcards/`~`/`$HOME`/root,
+  so ordinary `rm -f file` cleanup passes; all body-finding line numbers are
+  now absolute file lines (SARIF regions were off by the frontmatter height).
