@@ -1,10 +1,13 @@
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
+
+const here = fileURLToPath(new URL('.', import.meta.url));
 import assert from 'node:assert/strict';
 import { join } from 'node:path';
 import { audit, score, SEVERITY_WEIGHTS } from '../src/audit.js';
 import { loadSkillFile } from '../src/discover.js';
 
-const FIXTURES = join(import.meta.dirname, 'fixtures', 'demo-skills');
+const FIXTURES = join(here, 'fixtures', 'demo-skills');
 
 function findingIds(result) {
   return new Set(result.findings.map((f) => f.ruleId));

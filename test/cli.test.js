@@ -1,12 +1,15 @@
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
+
+const here = fileURLToPath(new URL('.', import.meta.url));
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 import { mkdtempSync, writeFileSync, mkdirSync, rmSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 
-const BIN = join(import.meta.dirname, '..', 'bin', 'skill-audit.js');
-const FIXTURES = join(import.meta.dirname, 'fixtures', 'demo-skills');
+const BIN = join(here, '..', 'bin', 'skill-audit.js');
+const FIXTURES = join(here, 'fixtures', 'demo-skills');
 
 function run(args, { expectCode } = {}) {
   try {
