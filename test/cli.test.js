@@ -15,6 +15,7 @@ function run(args, { expectCode } = {}) {
   try {
     const stdout = execFileSync(process.execPath, [BIN, ...args], {
       encoding: 'utf8',
+      maxBuffer: 32 * 1024 * 1024,
       env: { ...process.env, NO_COLOR: '1' },
     });
     return { stdout, code: 0 };
