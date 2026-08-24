@@ -12,7 +12,7 @@ exfiltration, destructive commands, obfuscated payloads, and broken metadata —
 then gives each skill a 0–100 health score.
 
 ```bash
-npx skill-audit ~/.claude/skills
+npx @frankfu0916/skill-audit ~/.claude/skills
 ```
 
 ```
@@ -51,13 +51,13 @@ reports; it never executes anything it finds.
 No install needed:
 
 ```bash
-npx skill-audit <path>
+npx @frankfu0916/skill-audit <path>
 ```
 
 Or add it to a project / CI:
 
 ```bash
-npm install -D skill-audit
+npm install -D @frankfu0916/skill-audit
 ```
 
 Requires Node ≥ 18. Zero runtime dependencies.
@@ -68,18 +68,18 @@ Requires Node ≥ 18. Zero runtime dependencies.
 skill-audit <paths...> [options]
 
 # Audit everything installed for your user
-npx skill-audit                       # defaults to ~/.claude/skills if present
-npx skill-audit ~/.claude/skills
+npx @frankfu0916/skill-audit                       # defaults to ~/.claude/skills if present
+npx @frankfu0916/skill-audit ~/.claude/skills
 
 # Audit one repo's skills before publishing yours
-npx skill-audit ./skills/my-skill
+npx @frankfu0916/skill-audit ./skills/my-skill
 
 # Machine-readable output for CI
-npx skill-audit .claude/skills -f sarif -o results.sarif
-npx skill-audit .claude/skills -f json | jq '.summary'
+npx @frankfu0916/skill-audit .claude/skills -f sarif -o results.sarif
+npx @frankfu0916/skill-audit .claude/skills -f json | jq '.summary'
 
 # Tune the rule set
-npx skill-audit ./skills --skip network-access,pip-install-unpinned
+npx @frankfu0916/skill-audit ./skills --skip network-access,pip-install-unpinned
 ```
 
 | Option | Description |

@@ -1,5 +1,5 @@
 {
-  "name": "skill-audit",
+  "name": "@frankfu0916/skill-audit",
   "version": "0.1.0",
   "description": "Security & quality audit for AI agent skills (Claude Code, Codex, Cursor...). Zero dependencies. Detects prompt injection, credential exfiltration, destructive commands and broken metadata in SKILL.md files.",
   "license": "MIT",
