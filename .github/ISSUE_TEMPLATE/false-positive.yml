@@ -1,0 +1,32 @@
+name: 📕 False positive report
+description: A rule flagged something that is actually legitimate
+labels: ["false-positive", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        False positives are the enemy of a security linter — thank you for reporting.
+        Noisy rules get narrowed or split aggressively.
+  - type: input
+    attributes:
+      label: Rule ID
+      description: e.g. `env-exfiltration` (shown in every finding)
+      placeholder: env-exfiltration
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Flagged line
+      description: Paste the exact line/text that was flagged.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Why this is legitimate
+      description: What does this code actually do, and why is it fine?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Skill context (optional)
+      description: Link to the public skill repo if you can.

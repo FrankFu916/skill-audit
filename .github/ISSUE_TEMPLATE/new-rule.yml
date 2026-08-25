@@ -1,0 +1,23 @@
+name: 🧪 New rule proposal
+description: Propose a pattern that skill-audit should detect
+labels: ["new-rule"]
+body:
+  - type: textarea
+    attributes:
+      label: What should be detected?
+      description: Describe the risky pattern and, ideally, include an example snippet.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Proposed severity
+      options:
+        - critical (credential theft / destruction / stealth)
+        - warning (risky pattern worth review)
+        - info (quality or hygiene)
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Real-world example (optional)
+      description: Link to a public skill that exhibits this pattern.
