@@ -209,6 +209,12 @@ can hide from regexes, and a benign-looking pattern may be flagged while being
 harmless. Treat `skill-audit` as a necessary filter, not sufficient review:
 for anything score < 80, read the SKILL.md and its scripts yourself.
 
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md): `--fix` metadata repair, baseline/ignore files,
+skill-hash drift detection (a lockfile for skills), taint tracking, a
+community index of audited skills, and a GitHub App for org-wide policy.
+
 ## Related
 
 - [Agent Skills spec](https://github.com/anthropics/skills) — official format & examples
